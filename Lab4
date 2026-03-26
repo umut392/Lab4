@@ -1,0 +1,39 @@
+dict={}
+tasknumber=0 
+tasknumber=input("Enter number of tasks:  ")
+completed_task=[]
+
+for sayi in range(int(tasknumber)):
+    
+    taskName=input("Enter task name: ")
+    line ="How many dependencies for ",taskName," ?  "
+    numberOfDependencies=input(line)
+    elements=[]
+    for sayi in range(int(numberOfDependencies)):
+        
+        dependencyName=input("add dependency name")
+        elements.append(dependencyName)
+        
+    dict[taskName]=elements
+    
+
+print("TASK STRUCTURE")
+for task, deps in dict.items():
+        print(f": {task} | -->: {deps}")
+
+
+
+print("INITIAL TASKS (no dependencies)")
+isexit=True
+for task, deps in dict.items():
+        if len(deps)==0:
+              print(task)
+              completed_task.append(task)
+              isexit=False
+
+if isexit==True:
+      print("None")
+
+print("EXECUTION ORDER: ")
+for element in completed_task:
+    print("step1 : ",element)
