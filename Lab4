@@ -55,13 +55,16 @@ if initalteskvarmi:
             #del sozluk["yas"]
                 del dictionary[gezenkey]
                 break
-        print(dictionary)
+        
         if aa:
             break
     if dictionary:
         print("ERROR: Circular dependency detected! These tasks could not be completed:")
         for a in dictionary:
             print(a)
+
+
+
 
     
 
