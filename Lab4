@@ -1,39 +1,71 @@
-dict={}
-tasknumber=0 
-tasknumber=input("Enter number of tasks:  ")
-completed_task=[]
+dictionary: dict[str,list]={}
+items={}
+numOfUsers=input("enter number of users : ")
+print(numOfUsers)
 
-for sayi in range(int(tasknumber)):
+
+for x in range(int(numOfUsers)):
+    userName=input("enter user name : ")
+    numOfItmes=input("enter number of items : ")
+    array=[]
+    for y in range(int(numOfItmes)):
+        item=input("enter item name : ")
+        array.append(item)
+        if item in items:
+            value=items.get(item)
+            value=value+1
+            items.update({item:value})
+        else: 
+            items.update({item:1})
+    dictionary.update({userName:array})
+
+print()
+print("TASK STRUCTURE ")
+for x in dictionary:
+    print(x,"-->",dictionary.get(x))
+
+print()
+print("initial tasks (no dependencies)")
+initalteskvarmi=False
+for x in dictionary:
+    if len(dictionary.get(x))==0:
+        print(x)
+        initalteskvarmi=True
+
+if not initalteskvarmi:
+    print("No task can be started")
     
-    taskName=input("Enter task name: ")
-    line ="How many dependencies for ",taskName," ?  "
-    numberOfDependencies=input(line)
-    elements=[]
-    for sayi in range(int(numberOfDependencies)):
-        
-        dependencyName=input("add dependency name")
-        elements.append(dependencyName)
-        
-    dict[taskName]=elements
+    
+if initalteskvarmi:
+    print("executon order :")
+    
+    while dictionary:
+        aa=True 
+        a=1
+        for gezenkey in dictionary:
+            if len(dictionary.get(gezenkey))==0:# length i 0 olanı bulduk
+                print("step ",a,": ",gezenkey)
+                a+=1
+                aa=False
+                silinecek=gezenkey
+                for gezen2 in dictionary:# her keyin arrayinde bu eleman varsa sil
+                    if silinecek in dictionary.get(gezen2):
+                        dictionary.get(gezen2).remove(silinecek)
+            #burda da dictionary den key olarak silicez
+            #del sozluk["yas"]
+                del dictionary[gezenkey]
+                break
+        print(dictionary)
+        if aa:
+            break
+    if dictionary:
+        print("ERROR: Circular dependency detected! These tasks could not be completed:")
+        for a in dictionary:
+            print(a)
+
     
 
-print("TASK STRUCTURE")
-for task, deps in dict.items():
-        print(f": {task} | -->: {deps}")
 
-
-
-print("INITIAL TASKS (no dependencies)")
-isexit=True
-for task, deps in dict.items():
-        if len(deps)==0:
-              print(task)
-              completed_task.append(task)
-              isexit=False
-
-if isexit==True:
-      print("None")
-
-print("EXECUTION ORDER: ")
-for element in completed_task:
-    print("step1 : ",element)
+        
+    
+        
